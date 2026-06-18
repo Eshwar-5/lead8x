@@ -1,0 +1,26 @@
+{
+    "name": "lead8x/platform",
+    "description": "Lead8X - Lead Management & Distribution Platform",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "firebase/php-jwt": "^6.9",
+        "phpoffice/phpspreadsheet": "^2.1",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lead8X\\": "backend/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "ext-gd": "1"
+        }
+    },
+    "audit": {
+        "abandoned": "ignore",
+        "block-insecure": false
+    }
+}

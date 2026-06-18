@@ -1,0 +1,52 @@
+RewriteEngine On
+
+# --- Pass Authorization header to PHP (shared hosting fix) ---
+RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# --- HTTPS Enforcement (Supports proxies/load balancers) ---
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- Security Headers ---
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# --- Block direct .env access ---
+<Files ".env">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# --- Block access to backend config directly ---
+RewriteRule ^backend/config/ - [F,L]
+
+# --- API requests → pass to backend PHP ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ backend/api/$1 [QSA,L]
+
+# --- Setup script (serve directly) ---
+RewriteRule ^setup\.php$ - [L]
+RewriteRule ^setup$ setup.php [QSA,L]
+
+# --- SPA: Everything else → index.html (React handles routing) ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/backend/
+RewriteCond %{REQUEST_URI} !\.(php)$
+RewriteRule ^ index.html [L]
+
+# --- Handle OPTIONS preflight (Internal Redirect) ---
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* - [R=200,L]
+
+# --- PHP Settings ---
+php_value upload_max_filesize 50M
+php_value post_max_size 50M
+php_value max_execution_time 300
+php_value memory_limit 256M
