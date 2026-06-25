@@ -12,6 +12,14 @@ The system automates the ingestion of leads from multiple social media advertisi
 * **The Solution:** I architected a secure, automated backend that listens for real-time webhook payloads from social platforms. Leads are instantly captured, validated, encrypted at rest, and made immediately available to the sales team via the dashboard. Response times were reduced from hours to seconds.
 
 ## 🛠️ Tech Stack & Architecture
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![Meta API](https://img.shields.io/badge/Meta_API-0468FF?style=for-the-badge&logo=meta&logoColor=white)
+![LinkedIn API](https://img.shields.io/badge/LinkedIn_API-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)
 * **Backend:** PHP (Custom Architecture)
 * **Database:** MySQL
 * **Frontend:** HTML5, CSS3, JavaScript (Vite build system)
